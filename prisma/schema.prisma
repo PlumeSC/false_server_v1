@@ -27,19 +27,27 @@ model User {
   profileImg  String?
   coverImg    String?
   isAdmin     Boolean   @default(false)
+  isVip       Boolean   @default(false)
   date        DateTime  @default(now())
-  team      String?
+  team        String?
   Post        Post[]
   Comment     Comment[]
 }
 
 model News {
-  id        Int      @id @default(autoincrement())
-  newsTitle String
-  newsCont  String
-  newsImg   String?
-  team      String?
-  date      DateTime @default(now())
+  id         Int          @id @default(autoincrement())
+  newsTitle  String
+  newsImg    String?
+  team       String?
+  date       DateTime     @default(now())
+  NewsContnt NewsContnt[]
+}
+
+model NewsContnt {
+  id      Int    @id @default(autoincrement())
+  message String
+  news    News   @relation(fields: [newsId], references: [id])
+  newsId  Int
 }
 
 model Post {
