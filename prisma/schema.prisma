@@ -1,0 +1,82 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum Team {
+  A
+  B
+  C
+  D
+}
+
+model User {
+  id          Int       @id @default(autoincrement())
+  firstname   String
+  lastname    String
+  phoneNumber String?   @unique
+  email       String?   @unique
+  password    String
+  profileImg  String?
+  coverImg    String?
+  isAdmin     Boolean   @default(false)
+  date        DateTime  @default(now())
+  team      String?
+  Post        Post[]
+  Comment     Comment[]
+}
+
+model News {
+  id        Int      @id @default(autoincrement())
+  newsTitle String
+  newsCont  String
+  newsImg   String?
+  team      String?
+  date      DateTime @default(now())
+}
+
+model Post {
+  id          Int       @id @default(autoincrement())
+  userMessage String?
+  userImg     String?
+  date        DateTime  @default(now())
+  user        User      @relation(fields: [userId], references: [id])
+  userId      Int
+  Comment     Comment[]
+}
+
+model Comment {
+  id             Int      @id @default(autoincrement())
+  commentMessage String?
+  commentImg     String?
+  date           DateTime @default(now())
+  user           User     @relation(fields: [userId], references: [id])
+  post           Post     @relation(fields: [postId], references: [id])
+  userId         Int
+  postId         Int
+}
+
+model Teams {
+  id        Int     @id @default(autoincrement())
+  team      String
+  logoTeam  String?
+  coverTeam String?
+  Match     Match[]
+}
+
+model Match {
+  id            Int      @id @default(autoincrement())
+  homeTeamScore Int      @default(0)
+  awayTeamScore Int      @default(0)
+  time          Int      @default(0)
+  date          DateTime @default(now())
+  teams         Teams    @relation(fields: [teamsId], references: [id])
+  teamsId       Int
+}
