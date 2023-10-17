@@ -4,14 +4,14 @@ const router = express.Router()
 // const authenticateAdmin = require(`../middleware/authenticateAdmin`)
 const {authenticate} = require(`../middleware/authenticate`)
 const upload = require(`../middleware/upload`)
-const {newsImg,news} = require(`../controllers/admin-controller`)
+const {newsImg,newsPost,news} = require(`../controllers/admin-controller`)
 
 
 
-// router.post(`/`,authenticateAdmin)
-router.post(`/text`,authenticate,upload.single(`file`),news)
+router.post(`/text`,authenticate,upload.single(`file`),newsPost)
 router.post(`/img`,authenticate,upload.single(`file`),newsImg)
-// router.patch(`/`,upload.single(`file`),newsImg)
+
+router.get(`/news`,authenticate,news)
 
 
 

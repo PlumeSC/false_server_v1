@@ -40,14 +40,15 @@ model News {
   newsImg    String?
   team       String?
   date       DateTime     @default(now())
-  NewsContnt NewsContnt[]
+  NewsContnt NewsContent[]
 }
 
-model NewsContnt {
-  id      Int    @id @default(autoincrement())
-  message String
-  news    News   @relation(fields: [newsId], references: [id])
-  newsId  Int
+model NewsContent {
+  id           Int    @id @default(autoincrement())
+  indexContent Int
+  message      String
+  news         News   @relation(fields: [newsId], references: [id])
+  newsId       Int
 }
 
 model Post {
