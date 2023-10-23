@@ -35,20 +35,12 @@ model User {
 }
 
 model News {
-  id         Int          @id @default(autoincrement())
-  newsTitle  String
-  newsImg    String?
-  team       String?
-  date       DateTime     @default(now())
-  NewsContnt NewsContent[]
-}
-
-model NewsContent {
-  id           Int    @id @default(autoincrement())
-  indexContent Int
-  message      String
-  news         News   @relation(fields: [newsId], references: [id])
-  newsId       Int
+  id      Int      @id @default(autoincrement())
+  title   String
+  team    String?
+  content String   @db.LongText
+  heroImg String?
+  date    DateTime @default(now())
 }
 
 model Post {
@@ -73,19 +65,41 @@ model Comment {
 }
 
 model Teams {
-  id        Int     @id @default(autoincrement())
-  team      String
-  logoTeam  String?
-  coverTeam String?
-  Match     Match[]
+  id       Int      @id @default(autoincrement())
+  rank     Int
+  team     String
+  logoTeam String
+  played   Int
+  win      Int
+  draw     Int
+  lose     Int
+  points   Int
+  GF       Int
+  GA       Int
+  GD       Int
+  form     String
+  update   DateTime @default(now())
+  // homeMatches Match[] @relation("homeId")
+  // awayMatches Match[] @relation("awayId")
 }
 
 model Match {
-  id            Int      @id @default(autoincrement())
-  homeTeamScore Int      @default(0)
-  awayTeamScore Int      @default(0)
-  time          Int      @default(0)
-  date          DateTime @default(now())
-  teams         Teams    @relation(fields: [teamsId], references: [id])
-  teamsId       Int
+  id        Int    @id @default(autoincrement())
+  home      String
+  away      String
+  homeLogo  String
+  awayLogo  String
+  season    Int
+  rounded   String
+  homeScore Int?
+  awayScore Int?
+  fullDate  String
+  date      String
+  time      String
+  status    String
+
+  // homeTeam Teams @relation("homeId", fields: [homeTeamId], references: [id])
+  // awayTeam Teams @relation("awayId", fields: [awayTeamId], references: [id])
+  // homeTeamId Int
+  // awayTeamId Int
 }

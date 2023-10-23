@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE `match` MODIFY `date` VARCHAR(191) NOT NULL,
+    MODIFY `time` VARCHAR(191) NOT NULL;
