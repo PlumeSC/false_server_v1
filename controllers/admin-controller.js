@@ -87,15 +87,25 @@ const news = async(req,res,next)=>{
 
 const uploadFile = async(req,res,next)=>{
     try {
-        if(req.file){
-            video = await cloudinary.uploader.upload(req.file.path)
-        }
+        console.log(req.file);
+
         await prisma.videos.create({
             data:{
-                video:video?.secure_url
+                name:req.file.originalname,
+                video:req.file.filename
             }
         })
         res.status(200).json({msg:`upload done`})
+    } catch (error) {
+        console.log(error);
+    }
+}
+const getVideos = async(req,res,next)=>{
+    try {
+        const data = await prisma.videos.findMany()
+
+        console.log(data);
+        res.status(200).json(data)
     } catch (error) {
         console.log(error);
     }
@@ -182,4 +192,4 @@ const getAll = async (req,res,next)=>{
 
 
 
-module.exports = {newsPost,newsImg,news,post,getAll,deletePost,edit,uploadFile}
+module.exports = {getVideos,newsPost,newsImg,news,post,getAll,deletePost,edit,uploadFile}

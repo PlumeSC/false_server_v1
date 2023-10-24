@@ -4,7 +4,7 @@ const router = express.Router()
 // const authenticateAdmin = require(`../middleware/authenticateAdmin`)
 const {authenticate} = require(`../middleware/authenticate`)
 const upload = require(`../middleware/upload`)
-const {newsImg,newsPost,news,post,getAll,deletePost,edit,uploadFile} = require(`../controllers/admin-controller`)
+const {newsImg,newsPost,news,post,getAll,deletePost,edit,uploadFile,getVideos} = require(`../controllers/admin-controller`)
 
 
 
@@ -20,6 +20,7 @@ router.post(`/delete`,deletePost)
 router.post(`/edit`,authenticate,upload.single('file'),edit)
 router.get(`/getAll`,getAll)
 router.post(`/upload`,authenticate,upload.single(`file`),uploadFile)
+router.get(`/video`,getVideos)
 
 
 

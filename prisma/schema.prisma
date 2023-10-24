@@ -18,20 +18,20 @@ enum Team {
 }
 
 model User {
-  id          Int       @id @default(autoincrement())
+  id          Int      @id @default(autoincrement())
   firstname   String
   lastname    String
-  phoneNumber String?   @unique
-  email       String?   @unique
+  phoneNumber String?  @unique
+  email       String?  @unique
   password    String
   profileImg  String?
   coverImg    String?
-  isAdmin     Boolean   @default(false)
-  isVip       Boolean   @default(false)
-  date        DateTime  @default(now())
+  isAdmin     Boolean  @default(false)
+  isVip       Boolean  @default(false)
+  date        DateTime @default(now())
   team        String?
-  Post        Post[]
-  Comment     Comment[]
+  // Post        Post[]
+  // Comment     Comment[]
 }
 
 model News {
@@ -43,26 +43,26 @@ model News {
   date    DateTime @default(now())
 }
 
-model Post {
-  id          Int       @id @default(autoincrement())
-  userMessage String?
-  userImg     String?
-  date        DateTime  @default(now())
-  user        User      @relation(fields: [userId], references: [id])
-  userId      Int
-  Comment     Comment[]
-}
+// model Post {
+//   id          Int       @id @default(autoincrement())
+//   userMessage String?
+//   userImg     String?
+//   date        DateTime  @default(now())
+//   user        User      @relation(fields: [userId], references: [id])
+//   userId      Int
+//   Comment     Comment[]
+// }
 
-model Comment {
-  id             Int      @id @default(autoincrement())
-  commentMessage String?
-  commentImg     String?
-  date           DateTime @default(now())
-  user           User     @relation(fields: [userId], references: [id])
-  post           Post     @relation(fields: [postId], references: [id])
-  userId         Int
-  postId         Int
-}
+// model Comment {
+//   id             Int      @id @default(autoincrement())
+//   commentMessage String?
+//   commentImg     String?
+//   date           DateTime @default(now())
+//   user           User     @relation(fields: [userId], references: [id])
+//   post           Post     @relation(fields: [postId], references: [id])
+//   userId         Int
+//   postId         Int
+// }
 
 model Teams {
   id       Int      @id @default(autoincrement())
@@ -102,4 +102,12 @@ model Match {
   // awayTeam Teams @relation("awayId", fields: [awayTeamId], references: [id])
   // homeTeamId Int
   // awayTeamId Int
+}
+
+
+model Videos{
+  id Int @id @default(autoincrement())
+  name String
+  video String
+  date DateTime @default(now())
 }
