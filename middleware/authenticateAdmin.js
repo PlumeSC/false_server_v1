@@ -6,7 +6,7 @@ const {SECRET_KEY,EXP_KEY} = process.env
 
 
 
-const authenticate = async (req,res,next)=>{
+const authenticateAdmin = async (req,res,next)=>{
     try {
         const authorization = req.headers.authorization
         // console.log(req.headers);
@@ -18,11 +18,11 @@ const authenticate = async (req,res,next)=>{
             where:{id:payload.userId}
         })
         if(!user) return res.status(401).json({msg:`unauthorizationC`})
-
         delete user.password
-
+    
         // console.log(authorization);
         req.user = user
+        if(!user.isAdmin) return res.status(400).json({msg:`not admin`})
         // console.log(payload);
         next()
     } catch (error) {
@@ -31,4 +31,4 @@ const authenticate = async (req,res,next)=>{
     }
 }
 
-module.exports = {authenticate}
+module.exports = {authenticateAdmin}

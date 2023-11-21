@@ -5,7 +5,11 @@ const fs = require("fs");
 
 const standings = async(req,res,next)=>{
     try {
-        const data = await prisma.teams.findMany()
+        const data = await prisma.teams.findMany({
+            orderBy:{
+                rank:'asc'
+            }
+        })
         res.status(200).json(data)
     } catch (error) {
         console.log(error);
@@ -20,7 +24,11 @@ const home = async(req,res,next)=>{
             },
             take:6,
         })
-        const standings = await prisma.teams.findMany()
+        const standings = await prisma.teams.findMany({
+            orderBy:{
+                rank:`asc`
+            }
+        })
         res.status(200).json({news,standings})
     } catch (error) {
         next(error)
@@ -89,10 +97,10 @@ const videoId = async(req,res,next)=>{
             "Content-Length":constentLength,
             "Content-Type":"video/mp4"
         }
-        
+        res.writeHead(206, headers)
         const videoStream = fs.createReadStream(videoPath,{start,end})
         videoStream.pipe(res)
-        res.status(200).json(headers)
+        // res.status(200).json(headers)
 
     } catch (error) {
         console.log(error)

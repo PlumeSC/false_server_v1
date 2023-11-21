@@ -10,7 +10,8 @@ const {createAdmin} = require(`./utils/createAdmin`)
 
 
 const {axiosStanding,createTeams} = require(`./API/standings`)
-const {match} = require(`./API/rounded`)
+const {updateTeam} = require(`./API/updateStanding`)
+const {match,updateMatch,fsmatch} = require(`./API/rounded`)
 
 
 
@@ -25,9 +26,11 @@ const serverError = require(`./middleware/serverError`)
 
 
 // createAdmin()
-
+// axiosStanding()
 // createTeams()
+// updateTeam()
 // match()
+// updateMatch()
 
 
 app.use(express.json({ limit: '50mb' }));

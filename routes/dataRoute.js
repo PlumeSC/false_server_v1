@@ -7,6 +7,6 @@ const {standings,livescore,home,videoId} = require(`../controllers/data-controll
 router.get(`/standings`,standings)
 router.get(`/livescore`,livescore)
 router.get(`/home`,home)
-router.post(`/video/:videoId`,videoId)
+router.get(`/video/:videoId`,videoId)
 
 module.exports = router

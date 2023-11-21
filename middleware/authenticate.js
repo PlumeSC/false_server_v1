@@ -18,15 +18,15 @@ const authenticate = async (req,res,next)=>{
             where:{id:payload.userId}
         })
         if(!user) return res.status(401).json({msg:`unauthorizationC`})
-
         delete user.password
 
-        // console.log(authorization);
         req.user = user
+        // if(user.isAdmin) return res.status(400).json({msg:`not admin`})
+
+        // console.log(authorization);
         // console.log(payload);
         next()
     } catch (error) {
-        console.log(1);
         next(error)
     }
 }

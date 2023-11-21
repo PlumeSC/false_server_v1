@@ -98,10 +98,7 @@ model Match {
   time      String
   status    String
 
-  // homeTeam Teams @relation("homeId", fields: [homeTeamId], references: [id])
-  // awayTeam Teams @relation("awayId", fields: [awayTeamId], references: [id])
-  // homeTeamId Int
-  // awayTeamId Int
+  // homeTeam Te+5
 }
 
 

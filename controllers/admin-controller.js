@@ -156,7 +156,8 @@ const post = async(req,res,next)=>{
 
 const deletePost = async(req,res,next)=>{
     try {
-        console.log(req.body.data.id);
+
+        // console.log(req.body.data.id);
         await prisma.news.delete({
             where:{
                 id:req.body.data.id

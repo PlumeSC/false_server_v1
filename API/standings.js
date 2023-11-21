@@ -2,6 +2,8 @@ const axios = require('axios');
 const {PrismaClient} = require(`@prisma/client`)
 const prisma = new PrismaClient()
 const fs = require(`fs/promises`)
+require(`dotenv`).config()
+const {API_FOOTBALL} = process.env
 
 const options = {
   method: 'GET',
@@ -11,14 +13,14 @@ const options = {
     league: '39'
   },
   headers: {
-    'X-RapidAPI-Key': '7ebe202ab2msh4a5e6520f04bbbap12fbf7jsn3d5fef1a70a2',
+    'X-RapidAPI-Key': API_FOOTBALL,
     'X-RapidAPI-Host': 'api-football-v1.p.rapidapi.com'
   }
 };
 async function axiosStanding(){
     try {
         const response = await axios.request(options);
-        const data = await fs.writeFile(`./standings.json`,JSON.stringify(response.data)) 
+        const data = await fs.writeFile(`./API/standings.json`,JSON.stringify(response.data)) 
         console.log(data);
         console.log(response.data);
     } catch (error) {
@@ -52,15 +54,16 @@ async function createTeams(){
                 form:item.form,
             })
         })]
-        const a =create[0].filter((item,index)=>item.rank<=10);
-        const b =create[0].filter((item,index)=>item.rank>10);
+        // const a =create[0].filter((item,index)=>item.rank<=10);
+        // const b =create[0].filter((item,index)=>item.rank>10);
+        // console.log(create);
         
         await prisma.teams.createMany({
-            data:a
+            data:create[0]
         })
-        await prisma.teams.createMany({
-            data:b
-        })
+        // await prisma.teams.createMany({
+        //     data:b
+        // })
         console.log(`create done`);
         
     } catch (error) {
